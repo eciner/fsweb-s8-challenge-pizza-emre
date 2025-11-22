@@ -1,52 +1,181 @@
 /* src/components/OrderForm.css */
 
-.order-form-wrapper {
+.order-layout {
   display: grid;
-  grid-template-columns: 2fr 1.1fr;
-  gap: 32px;
+  grid-template-columns: 3fr 1.5fr;
+  gap: 40px;
+  margin-top: 32px;
 }
 
-@media (max-width: 900px) {
-  .order-form-wrapper {
+@media (max-width: 960px) {
+  .order-layout {
     grid-template-columns: 1fr;
   }
 }
 
-/* Sol taraf: form */
+/* Sol taraf: form kartı */
 .order-form-card {
-  background-color: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 24px 28px 28px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
 }
 
-/* Sağ taraf: özet */
-.order-summary-card {
-  background-color: white;
-  border-radius: 12px;
-  padding: 24px;
-  align-self: flex-start;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+/* Pizza başlık kısmı */
+.order-title {
+  font-size: 22px;
+  margin-bottom: 6px;
 }
 
-.order-summary-title {
-  font-family: var(--font-heading);
-  font-size: 20px;
-  margin-bottom: 16px;
-}
-
-.order-summary-line {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-  font-size: 14px;
-}
-
-.order-summary-total {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid #ddd;
+.order-price {
   font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.order-description {
+  font-size: 13px;
+  color: var(--color-gray-light);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+/* Form alanları genel */
+.order-form-card label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.order-form-card .form-field {
+  margin-bottom: 18px;
+}
+
+/* Input ve textarea stilleri */
+.order-input,
+.order-textarea,
+.order-select {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background-color: #fdf7ee;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.order-input:focus,
+.order-textarea:focus,
+.order-select:focus {
+  border-color: var(--color-yellow);
+  box-shadow: 0 0 0 2px rgba(253, 201, 19, 0.3);
+  background-color: #fffaf0;
+}
+
+/* Radio buton grubu */
+.size-options,
+.crust-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.size-pill,
+.crust-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #eee;
+  background-color: #fdf7ee;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.12s ease-out;
+}
+
+.size-pill input,
+.crust-pill input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.size-pill--selected,
+.crust-pill--selected {
+  background-color: var(--color-yellow);
+  border-color: var(--color-yellow);
+  font-weight: 700;
+}
+
+/* Custom checkbox - toppings */
+.toppings-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px 12px;
+}
+
+@media (max-width: 700px) {
+  .toppings-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.topping-checkbox {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.topping-checkbox input {
+  display: none;
+}
+
+.topping-custom-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  margin-right: 8px;
+  position: relative;
+}
+
+.topping-checkbox input:checked + .topping-custom-box {
+  background-color: var(--color-yellow);
+  border-color: var(--color-yellow);
+}
+
+.topping-checkbox input:checked + .topping-custom-box::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -54%);
+  font-size: 12px;
+}
+
+.topping-label-text {
+  white-space: nowrap;
+}
+
+/* Hata metinleri */
+.order-error-text {
+  font-size: 12px;
+  color: #dc3545;
+  margin-top: 4px;
+}
+
+/* Adet kontrol */
+.quantity-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 8px;
 }
 
 .order-quantity-control {
@@ -55,6 +184,7 @@
   border-radius: 999px;
   border: 1px solid #ddd;
   overflow: hidden;
+  background-color: #fff;
 }
 
 .order-quantity-control button {
@@ -71,17 +201,71 @@
   text-align: center;
 }
 
-.order-error-text {
+/* Sağ taraf: Sipariş özeti */
+.order-summary-card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 20px 22px;
+  align-self: flex-start;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.order-summary-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  color: var(--color-gray-dark);
+}
+
+.order-summary-subtitle {
+  font-size: 14px;
+  color: var(--color-gray-light);
+  margin-bottom: 16px;
+}
+
+.order-summary-section {
+  margin-bottom: 12px;
+}
+
+.order-summary-label {
   font-size: 12px;
-  color: #dc3545;
-  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gray-light);
+  margin-bottom: 4px;
+}
+
+.order-summary-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.order-summary-line span:last-child {
+  font-weight: 600;
+}
+
+.order-summary-section--totals {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
+
+.order-summary-total-amount {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-red);
 }
 
 /* Sipariş ver butonu */
 .order-submit-button {
   width: 100%;
-  margin-top: 12px;
-  padding-block: 12px;
+  margin-top: 20px;
+  padding-block: 14px;
   background-color: var(--color-yellow);
   border-radius: 999px;
   border: none;

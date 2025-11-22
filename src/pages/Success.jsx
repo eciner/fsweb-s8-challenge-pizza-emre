@@ -1,76 +1,64 @@
 // src/pages/Success.jsx
 import React from "react";
-import { Link } from "react-router-dom";
 import Logo from "../components/Logo";
+import Footer from "../components/Footer";
 import "./Success.css";
 
 function Success({ order }) {
-  const hasOrder = Boolean(order);
+  if (!order) {
+    // Eğer sayfa doğrudan açılırsa basit bir fallback
+    return (
+      <div className="success-page">
+        <Logo className="success-logo" />
+        <div className="success-inner">
+          <h2>Geçerli sipariş bulunamadı.</h2>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="success-page">
       <Logo className="success-logo" />
 
-      <section className="success-card">
-        <h2 className="success-title">Siparişiniz Alındı!</h2>
+      <div className="success-inner">
+        <div className="success-subtext">lezzetin yolda</div>
+        <h1 className="success-title">SİPARİŞ ALINDI</h1>
 
-        {!hasOrder && (
-          <p className="success-details">
-            Henüz bir sipariş bulunamadı. Yeni bir sipariş oluşturmak için{" "}
-            <Link to="/order">form sayfasına</Link> gidebilirsiniz.
-          </p>
-        )}
+        <hr className="success-divider" />
 
-        {hasOrder && (
-          <>
-            <p className="success-details">
-              <strong>Position Absolute Acı Pizza</strong> için verdiğiniz
-              sipariş başarıyla alındı.
-            </p>
+        <div className="success-pizza-name">Position Absolute Acı Pizza</div>
 
-            <div className="success-divider" />
+        <div className="success-details">
+          <strong>Boyut:</strong> {order.size}
+          <br />
+          <strong>Hamur:</strong> {order.crust}
+          <br />
+          <strong>Ek Malzemeler:</strong>{" "}
+          {order.toppings && order.toppings.length > 0
+            ? order.toppings.join(", ")
+            : "Seçilmedi"}
+        </div>
 
-            <p className="success-details">
-              <strong>Ad Soyad:</strong> {order.customerName}
-              <br />
-              <strong>Boyut:</strong> {order.size}
-              <br />
-              <strong>Hamur:</strong> {order.crust}
-              <br />
-              <strong>Ek Malzemeler:</strong>{" "}
-              {order.toppings && order.toppings.length > 0
-                ? order.toppings.join(", ")
-                : "Seçilmedi"}
-              <br />
-              <strong>Adet:</strong> {order.quantity}
-            </p>
+        <div className="success-summary-box">
+          <div className="success-summary-title">Sipariş Toplamı</div>
 
-            <div className="success-divider" />
+          <div className="success-summary-row">
+            <span>Seçimler</span>
+            <span>{order.prices.extras.toFixed(2)}₺</span>
+          </div>
 
-            {order.prices && (
-              <p className="success-details">
-                <strong>Seçimler:</strong> {order.prices.extras.toFixed(2)}₺
-                <br />
-                <strong>Toplam:</strong> {order.prices.total.toFixed(2)}₺
-              </p>
-            )}
+          <div className="success-summary-row">
+            <span>Toplam</span>
+            <span className="success-summary-total">
+              {order.prices.total.toFixed(2)}₺
+            </span>
+          </div>
+        </div>
+      </div>
 
-            {order.apiResponse && (
-              <>
-                <div className="success-divider" />
-                <p className="success-details">
-                  <strong>Sunucu Yanıtı:</strong>
-                  <br />
-                  <code>
-                    id: {order.apiResponse.id} – createdAt:{" "}
-                    {order.apiResponse.createdAt}
-                  </code>
-                </p>
-              </>
-            )}
-          </>
-        )}
-      </section>
+      <Footer />
     </div>
   );
 }

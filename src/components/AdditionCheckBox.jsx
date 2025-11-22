@@ -1,22 +1,23 @@
 // src/components/AdditionCheckBox.jsx
 import React from "react";
-import { FormGroup, Label, Input } from "reactstrap";
+import "./OrderForm.css"; // custom checkbox stilleri burada
 
-function AdditionCheckBox({ label, value, checked, onChange, invalid }) {
+function AdditionCheckBox({ label, value, checked, onChange }) {
+  const id = `topping-${value}`;
+
   return (
-    <FormGroup check inline>
-      <Label check>
-        <Input
-          type="checkbox"
-          name="toppings"
-          value={value}
-          onChange={onChange}
-          checked={checked}
-          invalid={invalid}
-        />{" "}
-        {label}
-      </Label>
-    </FormGroup>
+    <label className="topping-checkbox" htmlFor={id}>
+      <input
+        id={id}
+        type="checkbox"
+        name="toppings"
+        value={value}
+        checked={checked}
+        onChange={onChange}
+      />
+      <span className="topping-custom-box" />
+      <span className="topping-label-text">{label}</span>
+    </label>
   );
 }
 

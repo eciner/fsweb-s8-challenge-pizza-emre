@@ -2,16 +2,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import {
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Row,
-  Col,
-  InputGroup,
-} from "reactstrap";
-
 import AdditionCheckBox from "./AdditionCheckBox";
 import "./OrderForm.css";
 
@@ -36,19 +26,20 @@ const INITIAL_ERRORS = {
 
 const TOPPING_OPTIONS = [
   "Pepperoni",
-  "Mantar",
+  "Sosis",
+  "Kanada Jambonu",
+  "Tavuk Parça",
+  "Soğan",
+  "Domates",
   "Mısır",
   "Sucuk",
-  "Soğan",
-  "Zeytin",
-  "Biber",
-  "Domates",
   "Jalapeno",
+  "Sarımsak",
   "Ananas",
-  "Mozzarella",
+  "Kabak",
 ];
 
-function OrderForm({ onOrderComplete }) {
+function OrderForm({ onOrderSubmit }) {
   const history = useHistory();
 
   const [form, setForm] = useState(INITIAL_FORM);
@@ -59,7 +50,6 @@ function OrderForm({ onOrderComplete }) {
     total: BASE_PRICE,
   });
 
-  // Fiyatı hesapla (toppings + quantity)
   useEffect(() => {
     const extrasCost = form.toppings.length * EXTRA_PRICE * form.quantity;
     const totalCost = BASE_PRICE * form.quantity + extrasCost;
@@ -70,7 +60,6 @@ function OrderForm({ onOrderComplete }) {
     });
   }, [form.toppings, form.quantity]);
 
-  // Formu kontrol eden fonksiyon
   const validate = (values) => {
     const newErrors = { ...INITIAL_ERRORS };
 
@@ -95,10 +84,15 @@ function OrderForm({ onOrderComplete }) {
     return newErrors;
   };
 
-  // Her değişimde formu güncelle + validasyon yap
-  const handleChange = (event) => {
-    const { name, value, type } = event.target;
+  const syncValidity = (validationErrors) => {
+    const hasError = Object.values(validationErrors).some(
+      (msg) => msg && msg.length > 0
+    );
+    setCanSubmit(!hasError);
+  };
 
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     let nextForm = { ...form };
 
     if (name === "toppings") {
@@ -116,24 +110,17 @@ function OrderForm({ onOrderComplete }) {
     const validationErrors = validate(nextForm);
     setForm(nextForm);
     setErrors(validationErrors);
-
-    // Hatasız ise submit açılabilir
-    const hasError = Object.values(validationErrors).some(
-      (msg) => msg && msg.length > 0
-    );
-    setCanSubmit(!hasError);
+    syncValidity(validationErrors);
   };
 
   const handleQuantityChange = (delta) => {
     const newQty = Math.max(1, form.quantity + delta);
     const nextForm = { ...form, quantity: newQty };
     const validationErrors = validate(nextForm);
+
     setForm(nextForm);
     setErrors(validationErrors);
-    const hasError = Object.values(validationErrors).some(
-      (msg) => msg && msg.length > 0
-    );
-    setCanSubmit(!hasError);
+    syncValidity(validationErrors);
   };
 
   const handleSubmit = async (event) => {
@@ -172,106 +159,126 @@ function OrderForm({ onOrderComplete }) {
 
       console.log("API yanıtı:", response.data);
 
-      // App seviyesinde saklayacağımız veri
       const orderForApp = {
         ...form,
         prices,
         apiResponse: response.data,
       };
 
-      onOrderComplete(orderForApp);
-
+      onOrderSubmit(orderForApp);
       history.push("/success");
     } catch (error) {
       console.error("Sipariş gönderilirken hata:", error);
       alert(
-        "Şu anda sipariş gönderilirken bir sorun oluştu. Lütfen tekrar deneyin."
+        "Şu anda sipariş gönderilirken bir sorun oluştu. Lütfen bağlantınızı kontrol edip tekrar deneyin."
       );
     }
   };
 
   return (
-    <div className="order-form-wrapper">
+    <div className="order-layout">
       {/* Sol: form */}
       <section className="order-form-card">
-        <Form onSubmit={handleSubmit} noValidate>
+        <h2 className="order-title">Position Absolute Acı Pizza</h2>
+        <div className="order-price">85.50₺</div>
+        <p className="order-description">
+          Frontend dev olarak hâlâ position-static kullanıyorsan bu çok acı
+          pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli
+          diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun
+          ateşinde fırında yüksek sıcaklıklarda pişirilen, genellikle yuvarlak,
+          düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli
+          lezzetli bir yemektir.
+        </p>
+
+        <form onSubmit={handleSubmit} noValidate>
           {/* İsim */}
-          <FormGroup>
-            <Label for="customerName">İsim Soyisim</Label>
-            <Input
+          <div className="form-field">
+            <label htmlFor="customerName">İsim Soyisim</label>
+            <input
               id="customerName"
               name="customerName"
+              className="order-input"
               value={form.customerName}
               onChange={handleChange}
               placeholder="Örn: Emre Ciner"
-              invalid={Boolean(errors.customerName)}
             />
             {errors.customerName && (
               <div className="order-error-text">{errors.customerName}</div>
             )}
-          </FormGroup>
+          </div>
 
           {/* Boyut */}
-          <FormGroup tag="fieldset">
-            <Label>Boyut Seçimi</Label>
-            <Row>
-              {["Küçük", "Orta", "Büyük"].map((size) => (
-                <Col xs={4} key={size}>
-                  <FormGroup check>
-                    <Label check>
-                      <Input
-                        type="radio"
-                        name="size"
-                        value={size}
-                        checked={form.size === size}
-                        onChange={handleChange}
-                        invalid={Boolean(errors.size)}
-                      />{" "}
-                      {size}
-                    </Label>
-                  </FormGroup>
-                </Col>
-              ))}
-            </Row>
+          <div className="form-field">
+            <label>Boyut Seç *</label>
+            <div className="size-options">
+              {["S", "M", "L"].map((size) => {
+                const label =
+                  size === "S" ? "Küçük" : size === "M" ? "Orta" : "Büyük";
+                const selected = form.size === label;
+                return (
+                  <label
+                    key={size}
+                    className={`size-pill ${
+                      selected ? "size-pill--selected" : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="size"
+                      value={label}
+                      checked={selected}
+                      onChange={handleChange}
+                    />
+                    {size}
+                  </label>
+                );
+              })}
+            </div>
             {errors.size && (
               <div className="order-error-text">{errors.size}</div>
             )}
-          </FormGroup>
+          </div>
 
           {/* Hamur */}
-          <FormGroup tag="fieldset">
-            <Label>Hamur Kalınlığı</Label>
-            {["İnce", "Orta", "Kalın"].map((option) => (
-              <FormGroup check key={option}>
-                <Label check>
-                  <Input
-                    type="radio"
-                    name="crust"
-                    value={option}
-                    checked={form.crust === option}
-                    onChange={handleChange}
-                    invalid={Boolean(errors.crust)}
-                  />{" "}
-                  {option}
-                </Label>
-              </FormGroup>
-            ))}
+          <div className="form-field">
+            <label>Hamur Seç *</label>
+            <div className="crust-options">
+              {["Süper İnce", "İnce", "Orta", "Kalın"].map((option) => {
+                const selected = form.crust === option;
+                return (
+                  <label
+                    key={option}
+                    className={`crust-pill ${
+                      selected ? "crust-pill--selected" : ""
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="crust"
+                      value={option}
+                      checked={selected}
+                      onChange={handleChange}
+                    />
+                    {option}
+                  </label>
+                );
+              })}
+            </div>
             {errors.crust && (
               <div className="order-error-text">{errors.crust}</div>
             )}
-          </FormGroup>
+          </div>
 
-          {/* Ek malzemeler */}
-          <FormGroup>
-            <Label>Ek Malzemeler (4–10 arası)</Label>
-            <div>
+          {/* Ek Malzemeler */}
+          <div className="form-field">
+            <label>Ek Malzemeler (4–10 arası)</label>
+            <div className="toppings-grid">
               {TOPPING_OPTIONS.map((item) => (
                 <AdditionCheckBox
                   key={item}
                   label={item}
                   value={item}
                   checked={form.toppings.includes(item)}
-                  invalid={Boolean(errors.toppings)}
                   onChange={handleChange}
                 />
               ))}
@@ -279,26 +286,26 @@ function OrderForm({ onOrderComplete }) {
             {errors.toppings && (
               <div className="order-error-text">{errors.toppings}</div>
             )}
-          </FormGroup>
+          </div>
 
           {/* Notlar */}
-          <FormGroup>
-            <Label for="notes">Notlar</Label>
-            <Input
+          <div className="form-field">
+            <label htmlFor="notes">Sipariş Notu</label>
+            <textarea
               id="notes"
-              type="textarea"
-              rows={3}
               name="notes"
+              rows={3}
+              className="order-textarea"
               value={form.notes}
               onChange={handleChange}
-              placeholder="Eklemek istediğiniz bir not var mı?"
+              placeholder="Siparişine eklemek istediğin bir not var mı?"
             />
-          </FormGroup>
+          </div>
 
           {/* Adet */}
-          <FormGroup>
-            <Label>Adet</Label>
-            <InputGroup>
+          <div className="form-field">
+            <label>Adet</label>
+            <div className="quantity-row">
               <div className="order-quantity-control">
                 <button type="button" onClick={() => handleQuantityChange(-1)}>
                   -
@@ -308,8 +315,8 @@ function OrderForm({ onOrderComplete }) {
                   +
                 </button>
               </div>
-            </InputGroup>
-          </FormGroup>
+            </div>
+          </div>
 
           <button
             type="submit"
@@ -318,39 +325,53 @@ function OrderForm({ onOrderComplete }) {
           >
             SİPARİŞ VER
           </button>
-        </Form>
+        </form>
       </section>
 
-      {/* Sağ: özet + fiyat */}
+      {/* Sağ: canlı özet */}
       <aside className="order-summary-card">
-        <h2 className="order-summary-title">Sipariş Özeti</h2>
+        <h2 className="order-summary-title">Sipariş Toplamı</h2>
+        <p className="order-summary-subtitle">Position Absolute Acı Pizza</p>
 
-        <div className="order-summary-line">
-          <span>Pizza Adı</span>
-          <span>Position Absolute Acı Pizza</span>
+        <div className="order-summary-section">
+          <p className="order-summary-label">Sipariş Detayları</p>
+          <div className="order-summary-line">
+            <span>Adet</span>
+            <span>{form.quantity}</span>
+          </div>
+          <div className="order-summary-line">
+            <span>Boyut</span>
+            <span>{form.size || "-"}</span>
+          </div>
+          <div className="order-summary-line">
+            <span>Hamur</span>
+            <span>{form.crust || "-"}</span>
+          </div>
         </div>
 
-        <div className="order-summary-line">
-          <span>Adet</span>
-          <span>{form.quantity}</span>
+        <div className="order-summary-section">
+          <p className="order-summary-label">Ek Malzemeler</p>
+          <div className="order-summary-line">
+            <span>Seçimler</span>
+            <span>
+              {form.toppings.length > 0
+                ? form.toppings.join(", ")
+                : "Henüz seçilmedi"}
+            </span>
+          </div>
         </div>
 
-        <div className="order-summary-line">
-          <span>Ek Malzemeler</span>
-          <span>
-            {form.toppings.length > 0 ? form.toppings.join(", ") : "Seçilmedi"}
-          </span>
-        </div>
-
-        <div className="order-summary-line">
-          <span>Seçimler</span>
-          <span>{prices.extras.toFixed(2)}₺</span>
-        </div>
-
-        <div className="order-summary-total">
+        <div className="order-summary-section order-summary-section--totals">
+          <p className="order-summary-label">Tutar</p>
+          <div className="order-summary-line">
+            <span>Seçimler</span>
+            <span>{prices.extras.toFixed(2)}₺</span>
+          </div>
           <div className="order-summary-line">
             <span>Toplam</span>
-            <span>{prices.total.toFixed(2)}₺</span>
+            <span className="order-summary-total-amount">
+              {prices.total.toFixed(2)}₺
+            </span>
           </div>
         </div>
       </aside>

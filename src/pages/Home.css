@@ -3,51 +3,47 @@
 .home-page {
   min-height: 100vh;
   width: 100vw;
+  background-color: var(--color-beige);
+  display: flex;
+  flex-direction: column;
+}
+
+/* HERO */
+.home-hero {
   background-color: var(--color-red);
   background-image: url("../assets/home-banner.png");
   background-repeat: no-repeat;
   background-position: bottom center;
   background-size: cover;
+  padding: 40px 0 260px;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
-.home-content {
-  max-width: 960px;
+.home-hero-inner {
+  max-width: 1200px;
   width: 100%;
-  padding-inline: 16px;
+  padding-inline: 24px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 32px;
+  text-align: center;
 }
 
-.home-logo {
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
-}
-
-.home-heading {
+.home-hero-heading {
   font-family: var(--font-heading);
-  font-size: 40px;
-  color: white;
-  line-height: 1.1;
+  font-size: 50px;
+  color: #fff;
+  line-height: 1.15;
 }
 
-.home-heading span {
+.home-hero-heading span {
   display: block;
 }
 
-.home-heading span:last-child {
-  font-weight: 700;
-}
-
-.home-cta {
-  margin-top: 12px;
-}
-
-.home-cta-button {
-  padding: 14px 32px;
+.home-hero-cta button {
+  padding: 14px 40px;
   background-color: var(--color-yellow);
   color: var(--color-gray-dark);
   border-radius: 30px;
@@ -57,9 +53,182 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   cursor: pointer;
-  transition: transform 0.1s ease-out;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 
-.home-cta-button:hover {
+.home-hero-cta button:hover {
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Ana içerik */
+.home-main {
+  flex: 1;
+}
+
+/* Kategori bar */
+.category-bar {
+  background-color: #fff;
+  transform: translateY(-60px);
+  max-width: 960px;
+  margin: 0 auto;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+}
+
+.category-pill {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 999px;
+  text-align: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font: inherit;
+}
+
+.category-pill--active {
+  background-color: var(--color-yellow);
+  font-weight: 600;
+}
+
+/* Featured kartlar */
+.featured-section {
+  max-width: 1200px;
+  margin: 32px auto 24px;
+  padding-inline: 24px;
+  display: grid;
+  grid-template-columns: 2fr 1.5fr;
+  gap: 20px;
+}
+
+@media (max-width: 960px) {
+  .featured-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+.featured-main-card,
+.featured-side-card {
+  border-radius: 24px;
+  padding: 24px;
+  background-color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.featured-main-title,
+.featured-side-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.featured-main-text,
+.featured-side-text {
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: var(--color-gray-light);
+}
+
+.featured-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-red);
+}
+
+/* En çok paketlenen menüler */
+.most-section {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding-inline: 24px;
+  text-align: center;
+}
+
+.most-section-title-small {
+  font-family: var(--font-logo);
+  color: var(--color-red);
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.most-section-title-main {
+  font-family: var(--font-heading);
+  font-size: 26px;
+}
+
+/* Pizza filtre butonları */
+.most-filters {
+  display: inline-flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.filter-pill {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.filter-pill--active {
+  background-color: var(--color-gray-dark);
+  color: #fff;
+}
+
+/* Pizza grid */
+.product-grid {
+  max-width: 1200px;
+  margin: 24px auto 40px;
+  padding-inline: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product-card {
+  background-color: #fff;
+  border-radius: 24px;
+  padding: 16px 16px 18px;
+  text-align: left;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.product-card-title {
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.product-card-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--color-gray-light);
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-grid-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-gray-light);
 }

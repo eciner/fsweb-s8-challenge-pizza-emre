@@ -4,10 +4,22 @@
   min-height: 100vh;
   width: 100vw;
   background-color: var(--color-beige);
+  display: flex;
+  flex-direction: column;
+}
+
+.order-hero {
+  background-color: var(--color-red);
+  background-image: url("../assets/home-banner.png");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: contain;
+  height: 160px;
 }
 
 .order-main {
   max-width: 960px;
-  margin: 24px auto;
+  margin: 0 auto 40px;
   padding-inline: 16px;
+  margin-top: -70px; /* -80 çok yukarı itiyorsa biraz düşürdük */
 }

@@ -4,19 +4,21 @@ import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import "./Header.css";
 
-function Header() {
+function Header({ showBreadcrumb = false }) {
   return (
-    <header className="order-header">
-      <div className="order-header-inner">
-        <div className="order-header-logo">
-          <Link to="/">
-            <Logo />
-          </Link>
-        </div>
-        <div className="order-header-breadcrumb">
-          <span>Anasayfa</span> - <strong>Sipariş Oluştur</strong>
-        </div>
+    <header className="site-header">
+      <div className="site-header-inner">
+        <Link to="/">
+          <Logo />
+        </Link>
       </div>
+
+      {showBreadcrumb && (
+        <div className="order-breadcrumb">
+          Anasayfa &nbsp; &gt; &nbsp; Seçenekler &nbsp; &gt;{" "}
+          <strong>Sipariş Oluştur</strong>
+        </div>
+      )}
     </header>
   );
 }

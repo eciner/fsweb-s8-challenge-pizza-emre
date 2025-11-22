@@ -4,32 +4,36 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Sayfalar
 import Home from "./pages/Home";
 import Order from "./pages/Order";
 import Success from "./pages/Success";
 
 function App() {
-  // Tüm sipariş verisini App seviyesinde saklıyoruz (prop-lifting için)
-  const [lastOrder, setLastOrder] = useState(null);
+  // Sipariş verilerinin Success sayfasına taşınması için
+  const [orderData, setOrderData] = useState(null);
 
-  // Order sayfasına göndereceğimiz callback
-  const handleOrderPlaced = (orderPayload) => {
-    setLastOrder(orderPayload);
+  // OrderForm’dan gelen siparişi kaydediyoruz
+  const handleOrderSubmit = (orderPayload) => {
+    setOrderData(orderPayload);
   };
 
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
+        {/* HOME – hem "/" hem "/home" */}
+        <Route exact path={["/", "/home"]}>
           <Home />
         </Route>
 
+        {/* ORDER */}
         <Route path="/order">
-          <Order onOrderComplete={handleOrderPlaced} />
+          <Order onOrderSubmit={handleOrderSubmit} />
         </Route>
 
+        {/* SUCCESS */}
         <Route path="/success">
-          <Success order={lastOrder} />
+          <Success order={orderData} />
         </Route>
       </Switch>
     </Router>
