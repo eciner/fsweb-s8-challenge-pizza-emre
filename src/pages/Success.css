@@ -1,0 +1,44 @@
+/* src/pages/Success.css */
+
+.success-page {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--color-beige);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.success-logo {
+  margin-bottom: 24px;
+}
+
+.success-card {
+  max-width: 600px;
+  width: 100%;
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.success-title {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  margin-bottom: 12px;
+}
+
+.success-details {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.success-details strong {
+  font-weight: 700;
+}
+
+.success-divider {
+  margin: 12px 0;
+  border-top: 1px solid #eee;
+}

@@ -1,0 +1,65 @@
+/* src/pages/Home.css */
+
+.home-page {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--color-red);
+  background-image: url("../assets/home-banner.png");
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-content {
+  max-width: 960px;
+  width: 100%;
+  padding-inline: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.home-logo {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.35));
+}
+
+.home-heading {
+  font-family: var(--font-heading);
+  font-size: 40px;
+  color: white;
+  line-height: 1.1;
+}
+
+.home-heading span {
+  display: block;
+}
+
+.home-heading span:last-child {
+  font-weight: 700;
+}
+
+.home-cta {
+  margin-top: 12px;
+}
+
+.home-cta-button {
+  padding: 14px 32px;
+  background-color: var(--color-yellow);
+  color: var(--color-gray-dark);
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 18px;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: transform 0.1s ease-out;
+}
+
+.home-cta-button:hover {
+  transform: translateY(-1px);
+}

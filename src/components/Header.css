@@ -1,0 +1,30 @@
+/* src/components/Header.css */
+
+.order-header {
+  background-color: var(--color-red);
+  color: white;
+}
+
+.order-header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-inline: 16px;
+}
+
+.order-header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.order-header-breadcrumb {
+  font-family: var(--font-heading);
+  font-size: 18px;
+}
+
+.order-header-breadcrumb strong {
+  font-weight: 700;
+}
