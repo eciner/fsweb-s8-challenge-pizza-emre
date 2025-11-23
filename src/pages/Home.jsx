@@ -5,13 +5,28 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./Home.css";
 
+import kart1 from "../assets/iteration-2-images/cta/kart-1.png";
+import kart2 from "../assets/iteration-2-images/cta/kart-2.png";
+import kart3 from "../assets/iteration-2-images/cta/kart-3.png";
+
+import food1 from "../assets/iteration-2-images/pictures/food-1.png";
+import food2 from "../assets/iteration-2-images/pictures/food-2.png";
+import food3 from "../assets/iteration-2-images/pictures/food-3.png";
+
+import icon1 from "../assets/iteration-2-images/icons/1.svg";
+import icon2 from "../assets/iteration-2-images/icons/2.svg";
+import icon3 from "../assets/iteration-2-images/icons/3.svg";
+import icon4 from "../assets/iteration-2-images/icons/4.svg";
+import icon5 from "../assets/iteration-2-images/icons/5.svg";
+import icon6 from "../assets/iteration-2-images/icons/6.svg";
+
 const categoriesTop = [
-  "YENİ! Kore",
-  "Pizza",
-  "Burger",
-  "Kızartmalar",
-  "Fast food",
-  "Gazlı İçecek",
+  { name: "YENİ! Kore", icon: icon1 },
+  { name: "Pizza", icon: icon2 },
+  { name: "Burger", icon: icon3 },
+  { name: "Kızartmalar", icon: icon4 },
+  { name: "Fast food", icon: icon5 },
+  { name: "Gazlı İçecek", icon: icon6 },
 ];
 
 const filterButtons = ["Ramen", "Pizza", "Burger", "French Fries"];
@@ -23,6 +38,7 @@ const products = [
     rating: "4.9",
     votes: "(200)",
     category: "Pizza",
+    image: food1,
   },
   {
     name: "Position Absolute Acı Pizza",
@@ -30,6 +46,7 @@ const products = [
     rating: "4.9",
     votes: "(829)",
     category: "Pizza",
+    image: food2,
   },
   {
     name: "useEffect Tavuklu Burger",
@@ -37,27 +54,24 @@ const products = [
     rating: "4.9",
     votes: "(462)",
     category: "Burger",
+    image: food3,
   },
 ];
 
 function Home() {
-  // Üst kategori barı için (sadece görsel highlight)
   const [activeTopCategory, setActiveTopCategory] = useState("Pizza");
-
-  // Ramen / Pizza / Burger / French Fries filtreleri
   const [activeFilter, setActiveFilter] = useState("Pizza");
 
   const filteredProducts = products.filter((p) => {
     if (activeFilter === "Pizza") return p.category === "Pizza";
     if (activeFilter === "Burger") return p.category === "Burger";
-    // Ramen & French Fries için şu an ürün yok, liste boş kalsın
     if (activeFilter === "Ramen") return p.category === "Ramen";
     if (activeFilter === "French Fries") return p.category === "French Fries";
     return true;
   });
 
   return (
-    <div className="home-page">
+    <div className="page home-page">
       <Header />
 
       {/* HERO */}
@@ -75,46 +89,78 @@ function Home() {
         </div>
       </section>
 
-      {/* Ana içerik */}
       <main className="home-main">
-        {/* Kategori bar */}
+        {/* Üst kategori barı */}
         <div className="category-bar">
           {categoriesTop.map((cat) => (
             <button
-              key={cat}
+              key={cat.name}
               type="button"
               className={`category-pill ${
-                activeTopCategory === cat ? "category-pill--active" : ""
+                activeTopCategory === cat.name ? "category-pill--active" : ""
               }`}
-              onClick={() => setActiveTopCategory(cat)}
+              onClick={() => setActiveTopCategory(cat.name)}
             >
-              {cat}
+              <img
+                src={cat.icon}
+                alt={cat.name}
+                className="category-pill-icon"
+              />
+              <span className="category-pill-label">{cat.name}</span>
             </button>
           ))}
         </div>
 
-        {/* Featured kartlar alanı – sade placeholder */}
+        {/* Üst 3 CTA kartı */}
         <section className="featured-section">
           <article className="featured-main-card">
-            <h3 className="featured-main-title">Özel Lezzetus</h3>
-            <p className="featured-main-text">
-              Position Absolute Acı Burger ile kodlara meydan oku.
-            </p>
-            <Link to="/order" className="featured-link">
-              Sipariş Ver
-            </Link>
+            <img src={kart1} alt="Özel Lezzetus" />
+            <div className="featured-main-content">
+              <h3 className="featured-main-title">Özel Lezzetus</h3>
+              <p className="featured-main-text">
+                Position Absolute Acı Burger ile kodlara meydan oku.
+              </p>
+              <Link to="/order" className="featured-link">
+                Sipariş Ver
+              </Link>
+            </div>
           </article>
 
-          <article className="featured-side-card">
-            <h3 className="featured-side-title">Çooook hızlı npm gibi kurye</h3>
-            <p className="featured-side-text">Siparişin sıcak sıcak kapında.</p>
-            <Link to="/order" className="featured-link">
-              Sipariş Ver
-            </Link>
-          </article>
+          <div className="featured-secondary">
+            <article className="featured-side-card">
+              <img src={kart2} alt="Hackatholn Burger Menü" />
+              <div className="featured-side-content">
+                <h3 className="featured-side-title">Hackathlon Burger Menü</h3>
+                <p className="featured-side-text">
+                  Hackathon gecelerine eşlik eden lezzetli burger menü.
+                </p>
+                <Link to="/order" className="featured-link">
+                  Sipariş Ver
+                </Link>
+              </div>
+            </article>
+
+            <article className="featured-side-card featured-side-card--dark">
+              <img src={kart3} alt="Çooook hızlı npm gibi kurye" />
+              <div className="featured-side-content">
+                <h3 className="featured-side-title">
+                  Çoooook hızlı npm gibi kurye
+                </h3>
+                <p className="featured-side-text">
+                  Siparişin sıcak sıcak kapında.
+                </p>
+                <Link
+                  to="/order"
+                  className="featured-link featured-link--light"
+                >
+                  Sipariş Ver
+                </Link>
+              </div>
+            </article>
+          </div>
         </section>
 
-        {/* En çok paketlenen menüler */}
+        {/* Popüler menüler */}
         <section className="most-section">
           <div className="most-section-title-small">
             en çok paketlenen menüler
@@ -139,7 +185,7 @@ function Home() {
           </div>
         </section>
 
-        {/* Pizza grid */}
+        {/* Ürün kartları */}
         <section className="product-grid">
           {filteredProducts.length === 0 ? (
             <div className="product-grid-empty">
@@ -148,12 +194,17 @@ function Home() {
           ) : (
             filteredProducts.map((p) => (
               <article key={p.name} className="product-card">
-                <div className="product-card-title">{p.name}</div>
-                <div className="product-card-meta">
-                  <span>
-                    {p.rating} {p.votes}
-                  </span>
-                  <span>{p.price}</span>
+                <div className="product-card-image-wrap">
+                  <img src={p.image} alt={p.name} />
+                </div>
+                <div className="product-card-body">
+                  <h4 className="product-card-title">{p.name}</h4>
+                  <div className="product-card-meta">
+                    <span>
+                      {p.rating} {p.votes}
+                    </span>
+                    <span>{p.price}</span>
+                  </div>
                 </div>
               </article>
             ))

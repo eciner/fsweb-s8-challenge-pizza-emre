@@ -1,21 +1,28 @@
 // src/components/AdditionCheckBox.jsx
 import React from "react";
-import "./OrderForm.css"; // custom checkbox stilleri burada
+import "./OrderForm.css";
 
-function AdditionCheckBox({ label, value, checked, onChange }) {
-  const id = `topping-${value}`;
+/**
+ * Tek ek malzeme (topping) checkbox bileşeni.
+ * Gerçek bir <input type="checkbox" /> içerir ama görünümünü
+ * kendi kutumuzla özelleştiriyoruz.
+ */
+function AdditionCheckBox({ label, value, checked, onChange, onToggle }) {
+  // Accept either `onChange` (used by OrderForm) or `onToggle` (older name)
+  const handleChange = onChange || onToggle || (() => {});
+  const activeClass = checked ? "topping-checkbox--active" : "";
 
   return (
-    <label className="topping-checkbox" htmlFor={id}>
+    <label className={`topping-checkbox ${activeClass}`}>
       <input
-        id={id}
         type="checkbox"
         name="toppings"
-        value={value}
+        value={value || label}
         checked={checked}
-        onChange={onChange}
+        onChange={handleChange}
+        aria-checked={checked}
       />
-      <span className="topping-custom-box" />
+      <span className="topping-custom-box" aria-hidden />
       <span className="topping-label-text">{label}</span>
     </label>
   );

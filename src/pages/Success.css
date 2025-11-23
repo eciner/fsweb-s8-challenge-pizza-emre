@@ -2,92 +2,283 @@
 
 .success-page {
   min-height: 100vh;
-  width: 100vw;
-  background-color: var(--color-red);
+  width: 100%;
+  background: radial-gradient(circle at 20% 20%, #f44545 0, #ce2829 30%, #b81f20 80%);
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  color: #fff;
+  overflow: hidden;
 }
 
-.success-logo {
-  margin-top: 32px;
-  margin-bottom: 40px;
+.success-page::before,
+.success-page::after {
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(255, 238, 200, 0.35), transparent 70%);
+  filter: blur(36px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.success-page::before {
+  top: -120px;
+  left: -80px;
+}
+
+.success-page::after {
+  bottom: -160px;
+  right: -80px;
+}
+
+.success-main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 56px 16px 72px;
+  position: relative;
+  z-index: 1;
 }
 
 .success-inner {
-  max-width: 600px;
+  max-width: 760px;
   width: 100%;
   text-align: center;
-  padding-inline: 24px;
-  margin-bottom: 60px; /* footer'dan önce boşluk */
+  position: relative;
+  padding: 8px;
 }
 
-.success-subtext {
-  font-family: "Satisfy", cursive;
-  font-size: 26px;
-  margin-bottom: 6px;
+.success-card {
+  background: linear-gradient(145deg, #ffffff, #fff6e9);
+  border-radius: 28px;
+  padding: 36px 32px 40px;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.16), 0 12px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid #f1e6d6;
+  position: relative;
+  overflow: hidden;
+}
+
+.success-card::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 22px;
+  border: 1px dashed rgba(255, 214, 140, 0.5);
+  pointer-events: none;
+}
+
+.success-logo-text {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  margin: 8px 0 12px;
+  color: #2d2d2d;
+}
+
+.success-heading-block {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.success-tagline {
+  font-family: var(--font-logo);
+  font-size: 20px;
+  margin: 0;
+  color: #f2b63b;
 }
 
 .success-title {
   font-family: var(--font-heading);
-  font-size: 48px;
-  letter-spacing: 0.05em;
+  font-size: 40px;
+  letter-spacing: 0.03em;
+  margin: 0;
+  color: #1f1f1f;
   text-transform: uppercase;
 }
 
 .success-divider {
-  width: 40%;
+  width: 100%;
   max-width: 420px;
   height: 1px;
-  margin: 24px auto 32px;
-  border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  background-color: #e7e7e7;
+  margin: 20px auto 24px;
 }
 
-.success-pizza-name {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 28px;
+.success-product-name {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  margin-bottom: 12px;
+  color: #1f1f1f;
+}
+
+.success-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
 }
 
 .success-details {
+  font-size: 15px;
+  line-height: 1.75;
+  background: #fffaf1;
+  border-radius: 14px;
+  padding: 14px 16px 12px;
+  border: 1px solid #f0e7d8;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
   text-align: left;
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 0 auto 24px;
-  max-width: 360px;
+  width: 100%;
+  max-width: 540px;
 }
 
-.success-details strong {
-  font-weight: 700;
+.success-details p {
+  margin: 8px 0;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  justify-content: start;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 8px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #f1e5d1;
+}
+
+.success-details .muted {
+  color: #6b6b6b;
+}
+
+.success-details .value {
+  font-weight: 600;
+  color: #262626;
+  text-align: left;
 }
 
 /* Kart */
-.success-summary-box {
-  margin: 0 auto 40px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  padding: 20px 28px;
-  border-radius: 8px;
+.success-summary-card {
+  margin: 14px auto 0;
+  width: 100%;
+  max-width: 320px;
+  background: linear-gradient(140deg, #fff3d4, #ffe8b4);
+  border-radius: 14px;
+  padding: 16px 18px 14px;
   text-align: left;
-  max-width: 260px;
+  border: 1px solid #ffd89b;
+  box-shadow: 0 12px 28px rgba(253, 201, 19, 0.18);
+}
+
+.success-summary-card h3 {
   font-size: 14px;
+  margin: 0 0 8px;
 }
 
-.success-summary-title {
-  font-weight: 700;
-  margin-bottom: 14px;
-  font-size: 16px;
-}
-
-.success-summary-row {
+.summary-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 6px;
+  font-size: 15px;
+  margin-top: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #f1e5d1;
+  align-items: center;
 }
 
-.success-summary-total {
-  font-size: 18px;
+.summary-row--strong {
+  font-weight: 600;
+  color: #1c1c1c;
+}
+
+.summary-row span:first-child {
+  color: #5b5b5b;
+}
+
+.success-back-button {
+  margin-top: 22px;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  background-color: var(--color-yellow);
+  color: #1c1c1c;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 12px 30px rgba(253, 201, 19, 0.3);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.success-back-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(253, 201, 19, 0.35);
+}
+
+.success-checkmark {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffe8b3, #ffd25f);
+  color: #1c1c1c;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
   font-weight: 700;
-  margin-top: 10px;
+  margin: 0 auto 16px;
+  box-shadow: 0 12px 32px rgba(253, 201, 19, 0.28);
+  border: 6px solid #fffaf1;
+}
+
+.success-subtitle {
+  max-width: 520px;
+  margin: 0 auto 12px;
+  color: #fdfdfd;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .success-main {
+    padding: 32px 12px 56px;
+  }
+
+  .success-card {
+    padding: 24px 18px 28px;
+  }
+
+  .success-title {
+    font-size: 32px;
+  }
+
+  .success-details {
+    font-size: 13px;
+  }
+
+  .success-details p {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .success-card {
+    padding: 22px 16px 26px;
+    border-radius: 20px;
+  }
+
+  .success-title {
+    font-size: 30px;
+  }
+
+  .success-product-name {
+    font-size: 18px;
+  }
+
+  .success-summary-card {
+    max-width: 100%;
+  }
+
+  .success-back-button {
+    width: 100%;
+  }
 }

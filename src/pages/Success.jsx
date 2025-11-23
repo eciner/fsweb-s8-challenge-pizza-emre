@@ -1,63 +1,101 @@
 // src/pages/Success.jsx
 import React from "react";
-import Logo from "../components/Logo";
+import { Link } from "react-router-dom";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "./Success.css";
 
+const BASE_PRICE = 85.5;
+
 function Success({ order }) {
   if (!order) {
-    // Eğer sayfa doğrudan açılırsa basit bir fallback
     return (
-      <div className="success-page">
-        <Logo className="success-logo" />
-        <div className="success-inner">
-          <h2>Geçerli sipariş bulunamadı.</h2>
-        </div>
+      <div className="page success-page">
+        <Header />
+        <main className="success-main">
+          <div className="success-inner">
+            <h1 className="success-title">Sipariş bulunamadı</h1>
+            <p className="success-subtitle">
+              Görünüşe göre bu sayfaya doğrudan geldin. Yeni bir pizza siparişi
+              vermek için aşağıdaki butonu kullanabilirsin.
+            </p>
+            <Link to="/order">
+              <button type="button" className="btn-primary">
+                Yeni Sipariş Oluştur
+              </button>
+            </Link>
+          </div>
+        </main>
         <Footer />
       </div>
     );
   }
 
+  const size = order.size || "-";
+  const crust = order.crust || "-";
+  const toppings = Array.isArray(order.toppings) ? order.toppings : [];
+  const quantity = order.quantity || 1;
+  const total = order.price || BASE_PRICE * quantity;
+  const extras = Math.max(0, total - BASE_PRICE * quantity);
+
   return (
-    <div className="success-page">
-      <Logo className="success-logo" />
+    <div className="page success-page">
+      <Header />
+      <main className="success-main">
+        <div className="success-inner">
+          <div className="success-card">
+            <div className="success-checkmark">✓</div>
+            <p className="success-logo-text">Teknolojik Yemekler</p>
 
-      <div className="success-inner">
-        <div className="success-subtext">lezzetin yolda</div>
-        <h1 className="success-title">SİPARİŞ ALINDI</h1>
+            <div className="success-heading-block">
+              <p className="success-tagline">lezzetin yolda</p>
+              <h1 className="success-title">SİPARİŞİN ALINDI</h1>
+            </div>
 
-        <hr className="success-divider" />
+            <div className="success-divider" />
 
-        <div className="success-pizza-name">Position Absolute Acı Pizza</div>
+            <div className="success-content">
+              <h2 className="success-product-name">
+                Position Absolute Acı Pizza
+              </h2>
 
-        <div className="success-details">
-          <strong>Boyut:</strong> {order.size}
-          <br />
-          <strong>Hamur:</strong> {order.crust}
-          <br />
-          <strong>Ek Malzemeler:</strong>{" "}
-          {order.toppings && order.toppings.length > 0
-            ? order.toppings.join(", ")
-            : "Seçilmedi"}
-        </div>
+              <div className="success-details">
+                <p>
+                  <span className="muted">Boyut</span>
+                  <span className="value">{size}</span>
+                </p>
+                <p>
+                  <span className="muted">Hamur</span>
+                  <span className="value">{crust}</span>
+                </p>
+                <p>
+                  <span className="muted">Ek Malzemeler</span>
+                  <span className="value">
+                    {toppings.length ? toppings.join(", ") : "-"}
+                  </span>
+                </p>
+              </div>
 
-        <div className="success-summary-box">
-          <div className="success-summary-title">Sipariş Toplamı</div>
+              <div className="success-summary-card">
+                <div className="summary-row">
+                  <span>Seçimler</span>
+                  <span>{extras.toFixed(2)}₺</span>
+                </div>
+                <div className="summary-row summary-row--strong">
+                  <span>Toplam</span>
+                  <span>{total.toFixed(2)}₺</span>
+                </div>
+              </div>
 
-          <div className="success-summary-row">
-            <span>Seçimler</span>
-            <span>{order.prices.extras.toFixed(2)}₺</span>
+              <Link to="/">
+                <button type="button" className="success-back-button">
+                  Anasayfaya dön
+                </button>
+              </Link>
+            </div>
           </div>
-
-          <div className="success-summary-row">
-            <span>Toplam</span>
-            <span className="success-summary-total">
-              {order.prices.total.toFixed(2)}₺
-            </span>
-          </div>
         </div>
-      </div>
-
+      </main>
       <Footer />
     </div>
   );

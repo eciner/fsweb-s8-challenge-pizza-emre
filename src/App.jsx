@@ -2,20 +2,16 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
-// Sayfalar
 import Home from "./pages/Home";
 import Order from "./pages/Order";
 import Success from "./pages/Success";
 
 function App() {
-  // Sipariş verilerinin Success sayfasına taşınması için
+  // Sipariş verisini Success sayfasına taşımak için prop-lifting
   const [orderData, setOrderData] = useState(null);
 
-  // OrderForm’dan gelen siparişi kaydediyoruz
-  const handleOrderSubmit = (orderPayload) => {
-    setOrderData(orderPayload);
+  const handleOrderSubmit = (orderPayloadFromApi) => {
+    setOrderData(orderPayloadFromApi);
   };
 
   return (

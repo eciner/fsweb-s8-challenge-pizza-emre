@@ -3,32 +3,31 @@
 .site-header {
   width: 100%;
   background-color: var(--color-red);
-  color: #fff;
 }
 
 .site-header-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 24px 8px;
+  padding: 16px 24px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-/* Order sayfası breadcrumb bölümü */
-.order-breadcrumb {
-  width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 12px 8px 16px;
-  font-size: 13px;
-  color: #ffe9e9;
+.site-header-title {
+  font-family: var(--font-heading);
+  font-size: 35px;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 
-.order-breadcrumb span {
-  opacity: 0.9;
-}
+@media (max-width: 600px) {
+  .site-header-inner {
+    padding: 14px 16px;
+  }
 
-.order-breadcrumb strong {
-  font-weight: 700;
+  .site-header-title {
+    font-size: 28px;
+  }
 }

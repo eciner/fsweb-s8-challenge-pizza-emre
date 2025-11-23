@@ -1,11 +1,11 @@
 // src/components/Logo.jsx
 import React from "react";
-import logoSrc from "../assets/logo.svg";
+import footerLogo from "../assets/iteration-2-images/footer/logo-footer.svg";
 
 function Logo({ className = "" }) {
   return (
     <img
-      src={logoSrc}
+      src={footerLogo}
       alt="Teknolojik Yemekler"
       className={`logo ${className}`}
     />
