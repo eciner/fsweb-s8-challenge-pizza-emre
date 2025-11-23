@@ -1,6 +1,10 @@
 #github
 .github/
 
+# cypress screenshots
+cypress/screenshots/
+# cypress videos
+cypress/videos/
 # Logs
 logs
 *.log

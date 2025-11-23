@@ -3,7 +3,12 @@
 .success-page {
   min-height: 100vh;
   width: 100%;
-  background: radial-gradient(circle at 20% 20%, #f44545 0, #ce2829 30%, #b81f20 80%);
+  background: radial-gradient(
+    circle at 20% 20%,
+    #f44545 0,
+    #ce2829 30%,
+    #b81f20 80%
+  );
   position: relative;
   display: flex;
   flex-direction: column;
@@ -16,7 +21,11 @@
   position: absolute;
   width: 360px;
   height: 360px;
-  background: radial-gradient(circle, rgba(255, 238, 200, 0.35), transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 238, 200, 0.35),
+    transparent 70%
+  );
   filter: blur(36px);
   z-index: 0;
   pointer-events: none;
@@ -36,7 +45,7 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  padding: 56px 16px 72px;
+  padding: 14px 10px 36px;
   position: relative;
   z-index: 1;
 }
@@ -52,7 +61,7 @@
 .success-card {
   background: linear-gradient(145deg, #ffffff, #fff6e9);
   border-radius: 28px;
-  padding: 36px 32px 40px;
+  padding: 30px 28px 36px;
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.16), 0 12px 40px rgba(0, 0, 0, 0.08);
   border: 1px solid #f1e6d6;
   position: relative;

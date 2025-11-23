@@ -22,6 +22,14 @@
   text-transform: none;
 }
 
+/* If the title becomes focusable (e.g. wrapped in a link), make it visibly interactive */
+.site-header-title:focus-visible,
+.site-header-title a:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.16);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
 @media (max-width: 600px) {
   .site-header-inner {
     padding: 14px 16px;

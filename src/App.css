@@ -18,6 +18,14 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* Make logo keyboard-focusable and add visible state */
+.logo:focus-visible {
+  outline: 3px solid rgba(100, 108, 255, 0.18);
+  outline-offset: 6px;
+  border-radius: 8px;
+  filter: drop-shadow(0 6px 20px rgba(100, 108, 255, 0.12));
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

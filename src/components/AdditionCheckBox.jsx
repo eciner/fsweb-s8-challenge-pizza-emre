@@ -1,30 +1,36 @@
-// src/components/AdditionCheckBox.jsx
 import React from "react";
 import "./OrderForm.css";
 
 /**
  * Tek ek malzeme (topping) checkbox bileşeni.
- * Gerçek bir <input type="checkbox" /> içerir ama görünümünü
- * kendi kutumuzla özelleştiriyoruz.
+ * Gerçek bir <input type="checkbox" /> içerir,
+ * pill görünümü label üzerinde CSS ile verilir.
  */
-function AdditionCheckBox({ label, value, checked, onChange, onToggle }) {
-  // Accept either `onChange` (used by OrderForm) or `onToggle` (older name)
-  const handleChange = onChange || onToggle || (() => {});
-  const activeClass = checked ? "topping-checkbox--active" : "";
+function AdditionCheckBox({ label, value, checked, onChange }) {
+  const finalValue = value || label;
+  const id = `topping-${finalValue.replace(/\s+/g, "-").toLowerCase()}`;
 
   return (
-    <label className={`topping-checkbox ${activeClass}`}>
+    <div className="topping-item">
       <input
+        id={id}
         type="checkbox"
         name="toppings"
-        value={value || label}
+        value={finalValue}
         checked={checked}
-        onChange={handleChange}
-        aria-checked={checked}
+        onChange={onChange}
+        className="topping-input-visually-hidden"
       />
-      <span className="topping-custom-box" aria-hidden />
-      <span className="topping-label-text">{label}</span>
-    </label>
+
+      <label
+        htmlFor={id}
+        className={`topping-pill ${checked ? "topping-pill--checked" : ""}`}
+        role="checkbox"
+        aria-checked={checked}
+      >
+        <span className="topping-pill-label">{label}</span>
+      </label>
+    </div>
   );
 }
 

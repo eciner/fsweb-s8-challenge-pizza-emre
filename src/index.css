@@ -65,6 +65,35 @@ a {
   text-decoration: none;
 }
 
+/* Accessible focus and hover helpers */
+/* Use :focus-visible to show outlines only for keyboard users */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(253, 201, 19, 0.9);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Interactive elements smoother transitions */
+button,
+input,
+textarea,
+select,
+a {
+  transition: box-shadow 160ms ease, transform 120ms ease,
+    border-color 120ms ease;
+}
+
+/* Make links visibly interactive on hover/focus */
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* Sayfa sarıcılar – hiçbir zaman 100vw kullanma */
 .page,
 .home-page,

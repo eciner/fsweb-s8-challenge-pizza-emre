@@ -209,6 +209,7 @@ function OrderForm({ onOrderSubmit }) {
               placeholder="Örn: Emre Ciner"
               value={form.customerName}
               onChange={handleChange}
+              data-cy="input-name"
             />
             {errors.customerName && (
               <p className="form-error">{errors.customerName}</p>
@@ -229,6 +230,7 @@ function OrderForm({ onOrderSubmit }) {
                       form.size === s.value ? "size-pill--active" : ""
                     }`}
                     onClick={() => handleSizeSelect(s.value)}
+                    data-cy={`size-pill-${s.value}`}
                   >
                     {s.label}
                   </button>
@@ -250,6 +252,7 @@ function OrderForm({ onOrderSubmit }) {
                       form.crust === crust ? "crust-pill--active" : ""
                     }`}
                     onClick={() => handleCrustSelect(crust)}
+                    data-cy={`crust-pill-${crust.replace(/\s+/g, "-")}`}
                   >
                     {crust}
                   </button>
@@ -287,6 +290,7 @@ function OrderForm({ onOrderSubmit }) {
                         handleToppingToggle(topping);
                       }
                     }}
+                    data-cy={`topping-pill-${topping.replace(/\s+/g, "-")}`}
                   >
                     {/* hidden input for accessibility / forms */}
                     <input
@@ -297,6 +301,7 @@ function OrderForm({ onOrderSubmit }) {
                       readOnly
                       aria-checked={isSelected}
                       tabIndex={-1}
+                      data-cy={`input-topping-${topping.replace(/\s+/g, "-")}`}
                     />
                     <span className="topping-pill-box" />
                     <span className="topping-pill-label">{topping}</span>
@@ -316,6 +321,7 @@ function OrderForm({ onOrderSubmit }) {
               placeholder="Siparişine eklemek istediğin bir not var mı?"
               value={form.notes}
               onChange={handleChange}
+              data-cy="input-notes"
             />
           </div>
 
@@ -327,14 +333,16 @@ function OrderForm({ onOrderSubmit }) {
                   type="button"
                   onClick={() => handleQuantityChange(-1)}
                   aria-label="Adeti azalt"
+                  data-cy="qty-decrease"
                 >
                   -
                 </button>
-                <span>{form.quantity}</span>
+                <span data-cy="qty-value">{form.quantity}</span>
                 <button
                   type="button"
                   onClick={() => handleQuantityChange(1)}
                   aria-label="Adeti artır"
+                  data-cy="qty-increase"
                 >
                   +
                 </button>
@@ -349,6 +357,7 @@ function OrderForm({ onOrderSubmit }) {
                 type="submit"
                 className="btn-primary order-submit-button"
                 disabled={!canSubmit}
+                data-cy="submit-order"
               >
                 {isSubmitting ? "Gönderiliyor..." : "SİPARİŞ VER"}
               </button>

@@ -14,13 +14,17 @@ function Success({ order }) {
         <Header />
         <main className="success-main">
           <div className="success-inner">
-            <h1 className="success-title">Sipariş bulunamadı</h1>
+            <h1 className="success-title">SİPARİŞ BULUNAMADI</h1>
             <p className="success-subtitle">
               Görünüşe göre bu sayfaya doğrudan geldin. Yeni bir pizza siparişi
               vermek için aşağıdaki butonu kullanabilirsin.
             </p>
             <Link to="/order">
-              <button type="button" className="btn-primary">
+              <button
+                type="button"
+                className="btn-primary"
+                data-cy="success-new-order"
+              >
                 Yeni Sipariş Oluştur
               </button>
             </Link>
@@ -55,7 +59,10 @@ function Success({ order }) {
             <div className="success-divider" />
 
             <div className="success-content">
-              <h2 className="success-product-name">
+              <h2
+                className="success-product-name"
+                data-cy="success-product-name"
+              >
                 Position Absolute Acı Pizza
               </h2>
 
@@ -74,6 +81,12 @@ function Success({ order }) {
                     {toppings.length ? toppings.join(", ") : "-"}
                   </span>
                 </p>
+                <p>
+                  <span className="muted">Sipariş Notu</span>
+                  <span className="value" data-cy="success-notes">
+                    {order.notes && order.notes.trim() ? order.notes : "-"}
+                  </span>
+                </p>
               </div>
 
               <div className="success-summary-card">
@@ -88,7 +101,11 @@ function Success({ order }) {
               </div>
 
               <Link to="/">
-                <button type="button" className="success-back-button">
+                <button
+                  type="button"
+                  className="success-back-button"
+                  data-cy="success-home-btn"
+                >
                   Anasayfaya dön
                 </button>
               </Link>

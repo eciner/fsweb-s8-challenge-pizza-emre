@@ -55,6 +55,25 @@
   line-height: 1.6;
 }
 
+/* Footer links hover & focus */
+.footer-list a {
+  color: inherit;
+  transition: color 140ms ease, transform 120ms ease;
+}
+
+.footer-list a:hover,
+.footer-list a:focus-visible {
+  color: var(--color-yellow);
+  transform: translateY(-2px);
+}
+
+.footer-instagram-item:focus-visible,
+.footer-instagram-item:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  border-radius: 10px;
+}
+
 .footer-instagram-grid {
   display: grid;
   grid-template-columns: repeat(3, 64px);

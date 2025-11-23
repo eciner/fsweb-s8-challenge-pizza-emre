@@ -62,6 +62,14 @@
   border-color: var(--color-yellow);
 }
 
+/* stronger visible focus for keyboard users */
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  border-color: var(--color-yellow);
+  box-shadow: 0 6px 18px rgba(253, 201, 19, 0.12);
+  outline: none;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1.1fr 1.6fr;
@@ -93,6 +101,19 @@
   background-color: #fff;
   font-size: 13px;
   font-family: var(--font-body);
+}
+
+/* pill hover & focus */
+.size-pill:hover:not(.size-pill--active),
+.crust-pill:hover:not(.crust-pill--active) {
+  border-color: #f6c84a;
+  transform: translateY(-2px);
+}
+
+.size-pill:focus-visible,
+.crust-pill:focus-visible {
+  outline: 3px solid rgba(253, 201, 19, 0.9);
+  outline-offset: 4px;
 }
 
 .size-pill--active,
@@ -152,6 +173,13 @@
 
 /* Hover efekti */
 .toppings-grid label:hover {
+  border-color: #f6c84a;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Make label focusable and visible for keyboard users */
+.toppings-grid label:focus-within,
+.toppings-grid label:focus-visible {
   border-color: #f6c84a;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
 }
@@ -333,6 +361,12 @@
   box-shadow: 0 6px 18px rgba(253, 201, 19, 0.08);
 }
 
+/* Prefer focus-visible for keyboard outlines */
+.topping-pill:focus-visible {
+  outline: 3px solid rgba(253, 201, 19, 0.9);
+  outline-offset: 4px;
+}
+
 .topping-pill:not(.topping-pill--disabled):hover {
   border-color: #f6c84a;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
@@ -381,6 +415,16 @@
   justify-content: center;
 }
 
+.quantity-buttons button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+.quantity-buttons button:focus-visible {
+  outline: 3px solid rgba(253, 201, 19, 0.9);
+  outline-offset: 3px;
+}
+
 .quantity-buttons span {
   min-width: 18px;
   text-align: center;
@@ -397,6 +441,20 @@
 
 .order-submit-button {
   width: 220px;
+}
+
+.order-submit-button {
+  transition: transform 140ms ease, box-shadow 160ms ease;
+}
+
+.order-submit-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(246, 200, 80, 0.12);
+}
+
+.order-submit-button:focus-visible {
+  outline: 3px solid rgba(253, 201, 19, 0.9);
+  outline-offset: 4px;
 }
 
 /* Form hataları */

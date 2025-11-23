@@ -77,13 +77,15 @@ function Home() {
       {/* HERO */}
       <section className="home-hero">
         <div className="home-hero-inner">
-          <h1 className="home-hero-heading">
+          <h1 className="home-hero-heading" data-cy="hero-heading">
             <span>KOD ACIKTIRIR</span>
             <span>PİZZA, DOYURUR</span>
           </h1>
           <div className="home-hero-cta">
             <Link to="/order">
-              <button type="button">ACIKTIM</button>
+              <button type="button" data-cy="hero-order-btn">
+                ACIKTIM
+              </button>
             </Link>
           </div>
         </div>
